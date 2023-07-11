@@ -34,6 +34,10 @@ Route::middleware('auth:sanctum')->prefix('v1_0')->group(function() {
     Route::patch('/access-control/roles/{id}', [RoleController::class, 'update']);
     Route::delete('/access-control/roles/{id}', [RoleController::class, 'destroy']);
     Route::post('/access-control/roles', [RoleController::class, 'store']);
+
+    // PEGAWAI
+    Route::resource('data-master/pegawai', \App\Http\Controllers\API\DataMaster\PegawaiController::class);
+
 });
 
 Route::prefix('v1_0')->group(function(){
