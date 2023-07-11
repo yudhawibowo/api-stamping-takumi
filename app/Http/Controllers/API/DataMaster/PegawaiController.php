@@ -22,7 +22,7 @@ class PegawaiController extends Controller
         $pegawais = Pegawai::latest()->get();
         return response()->json([
             'data' => PegawaiResource::collection($pegawais),
-            'message' => 'Fetch all posts',
+            'message' => 'All Data Pegawai',
             'success' => true
         ]);
     }
