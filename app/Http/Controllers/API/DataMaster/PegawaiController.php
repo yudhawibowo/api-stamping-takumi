@@ -135,7 +135,7 @@ class PegawaiController extends Controller
             'no_hp' => $request->get('no_hp'),
             'bagian' => $request->get('bagian'),
             //'username' => $request->get('username'),
-            'password' => bcrypt($request->get('password')),
+            //'password' => bcrypt($request->get('password')),
             'id_jabatan' => $request->get('id_jabatan'),
             'id_shift' => $request->get('id_shift')
         ]);
