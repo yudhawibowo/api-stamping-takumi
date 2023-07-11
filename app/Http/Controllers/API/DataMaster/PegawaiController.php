@@ -66,7 +66,7 @@ class PegawaiController extends Controller
             'no_hp' => $request->get('no_hp'),
             'bagian' => $request->get('bagian'),
             'username' => $request->get('username'),
-            'password' => $request->get('password'),
+            'password' => bcrypt($request->get('password')),
             'id_jabatan' => $request->get('id_jabatan'),
             'id_shift' => $request->get('id_shift')
         ]);
@@ -117,8 +117,8 @@ class PegawaiController extends Controller
         //
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
-            'username' => 'required',
-            'password' => 'required'
+            //'username' => 'required',
+            //'password' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -135,7 +135,7 @@ class PegawaiController extends Controller
             'no_hp' => $request->get('no_hp'),
             'bagian' => $request->get('bagian'),
             //'username' => $request->get('username'),
-            'password' => $request->get('password'),
+            'password' => bcrypt($request->get('password')),
             'id_jabatan' => $request->get('id_jabatan'),
             'id_shift' => $request->get('id_shift')
         ]);
