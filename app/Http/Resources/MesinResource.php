@@ -14,6 +14,14 @@ class MesinResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'code_mesin' => $this->code_mesin,
+            'nama_mesin' => $this->nama_mesin,
+            'tonase' => $this->tonase,
+            'sph' => $this->sph,
+            'capacity' => $this->capacity,
+            'status_mesin' => $this->status_mesin,
+        ];
     }
 }
