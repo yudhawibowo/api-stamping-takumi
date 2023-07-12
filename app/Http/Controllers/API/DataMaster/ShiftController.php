@@ -142,6 +142,8 @@ class ShiftController extends Controller
     public function destroy(Shift $shift)
     {
         //
+        $shift->delete();
+
         return response()->json([
             'data' => [],
             'message' => 'Data Shift deleted successfully',
