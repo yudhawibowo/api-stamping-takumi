@@ -140,6 +140,8 @@ class JabatanController extends Controller
     public function destroy(Jabatan $jabatan)
     {
         //
+        $jabatan->delete();
+
         return response()->json([
             'data' => [],
             'message' => 'Data Jabatan deleted successfully',
