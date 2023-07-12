@@ -44,6 +44,18 @@ Route::middleware('auth:sanctum')->prefix('v1_0')->group(function() {
     // SHIFT
     Route::resource('data-master/shift', \App\Http\Controllers\API\DataMaster\ShiftController::class);
 
+    // CUSTOMER
+    Route::resource('data-master/customer', \App\Http\Controllers\API\DataMaster\CustomerController::class);
+
+    // MATERIAL
+    Route::resource('data-master/material', \App\Http\Controllers\API\DataMaster\MaterialController::class);
+
+    // MESIN
+    Route::resource('data-master/mesin', \App\Http\Controllers\API\DataMaster\MesinController::class);
+
+    // ORDER
+    Route::resource('data-master/order', \App\Http\Controllers\API\DataMaster\OrderController::class);
+
 });
 
 Route::prefix('v1_0')->group(function(){
