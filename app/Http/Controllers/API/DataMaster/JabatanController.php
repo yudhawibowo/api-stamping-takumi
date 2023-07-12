@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\API\DataMaster;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\PegawaiResource;
-use App\Models\Pegawai;
+use App\Http\Resources\JabatanResource;
+use App\Models\Jabatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
-class PegawaiController extends Controller
+class JabatanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,10 +19,10 @@ class PegawaiController extends Controller
     public function index()
     {
         //
-        $pegawais = Pegawai::latest()->get();
+        $jabatans = Jabatan::latest()->get();
         return response()->json([
-            'data' => PegawaiResource::collection($pegawais),
-            'message' => 'All Data Pegawai',
+            'data' => JabatanResource::collection($jabatans),
+            'message' => 'All Data Jabatan',
             'success' => true
         ]);
     }
@@ -47,9 +47,7 @@ class PegawaiController extends Controller
     {
         //
         $validator = Validator::make($request->all(), [
-            'nama' => 'required',
-            'username' => 'required',
-            'password' => 'required'
+            'nama_jabatan' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -60,20 +58,14 @@ class PegawaiController extends Controller
             ]);
         }
 
-        $pegawais = Pegawai::create([
-            'nama' => $request->get('nama'),
-            'alamat' => $request->get('alamat'),
-            'no_hp' => $request->get('no_hp'),
-            'bagian' => $request->get('bagian'),
-            'username' => $request->get('username'),
-            'password' => bcrypt($request->get('password')),
-            'id_jabatan' => $request->get('id_jabatan'),
-            'id_shift' => $request->get('id_shift')
+        $jabatans = Jabatan::create([
+            'nama_jabatan' => $request->get('nama_jabatan'),
+            'bagian' => $request->get('bagian')
         ]);
 
         return response()->json([
-            'data' => new PegawaiResource($pegawais),
-            'message' => 'Data Pegawai created successfully.',
+            'data' => new JabatanResource($jabatans),
+            'message' => 'Data Jabatan created successfully.',
             'success' => true
         ]);
     }
@@ -81,15 +73,15 @@ class PegawaiController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Pegawai  $pegawai
+     * @param  \App\Models\Jabatan  $jabatan
      * @return \Illuminate\Http\Response
      */
-    public function show(Pegawai $pegawai)
+    public function show(Jabatan $jabatan)
     {
         //
         return response()->json([
-            'data' => new PegawaiResource($pegawai),
-            'message' => 'Data Pegawai found',
+            'data' => new JabatanResource($jabatan),
+            'message' => 'Data Jabatan found',
             'success' => true
         ]);
     }
@@ -97,10 +89,10 @@ class PegawaiController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Pegawai  $pegawai
+     * @param  \App\Models\Jabatan  $jabatan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pegawai $pegawai)
+    public function edit(Jabatan $jabatan)
     {
         //
     }
@@ -109,16 +101,14 @@ class PegawaiController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Pegawai  $pegawai
+     * @param  \App\Models\Jabatan  $jabatan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pegawai $pegawai)
+    public function update(Request $request, Jabatan $jabatan)
     {
         //
         $validator = Validator::make($request->all(), [
-            'nama' => 'required',
-            //'username' => 'required',
-            //'password' => 'required'
+            'nama_jabatan' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -129,39 +119,30 @@ class PegawaiController extends Controller
             ]);
         }
 
-        $pegawai->update([
-            'nama' => $request->get('nama'),
-            'alamat' => $request->get('alamat'),
-            'no_hp' => $request->get('no_hp'),
-            'bagian' => $request->get('bagian'),
-            //'username' => $request->get('username'),
-            //'password' => bcrypt($request->get('password')),
-            'id_jabatan' => $request->get('id_jabatan'),
-            'id_shift' => $request->get('id_shift')
+        $jabatan->update([
+            'nama_jabatan' => $request->get('nama_jabatan'),
+            'bagian' => $request->get('bagian')
         ]);
 
         return response()->json([
-            'data' => new PegawaiResource($pegawai),
-            'message' => 'Data Pegawai Update successfully.',
+            'data' => new JabatanResource($jabatan),
+            'message' => 'Data Jabatan Update successfully.',
             'success' => true
         ]);
-
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Pegawai  $pegawai
+     * @param  \App\Models\Jabatan  $jabatan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pegawai $pegawai)
+    public function destroy(Jabatan $jabatan)
     {
         //
-        $pegawai->delete();
-
         return response()->json([
             'data' => [],
-            'message' => 'Data Pegawai deleted successfully',
+            'message' => 'Data Jabatan deleted successfully',
             'success' => true
         ]);
     }

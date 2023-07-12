@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\API\DataMaster;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\PegawaiResource;
-use App\Models\Pegawai;
+use App\Http\Resources\ShiftResource;
+use App\Models\Shift;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
-class PegawaiController extends Controller
+class ShiftController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,10 +19,10 @@ class PegawaiController extends Controller
     public function index()
     {
         //
-        $pegawais = Pegawai::latest()->get();
+        $shifts = Shift::latest()->get();
         return response()->json([
-            'data' => PegawaiResource::collection($pegawais),
-            'message' => 'All Data Pegawai',
+            'data' => ShiftResource::collection($shifts),
+            'message' => 'All Data Shift',
             'success' => true
         ]);
     }
@@ -47,9 +47,7 @@ class PegawaiController extends Controller
     {
         //
         $validator = Validator::make($request->all(), [
-            'nama' => 'required',
-            'username' => 'required',
-            'password' => 'required'
+            'nama_shift' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -60,20 +58,15 @@ class PegawaiController extends Controller
             ]);
         }
 
-        $pegawais = Pegawai::create([
-            'nama' => $request->get('nama'),
-            'alamat' => $request->get('alamat'),
-            'no_hp' => $request->get('no_hp'),
-            'bagian' => $request->get('bagian'),
-            'username' => $request->get('username'),
-            'password' => bcrypt($request->get('password')),
-            'id_jabatan' => $request->get('id_jabatan'),
-            'id_shift' => $request->get('id_shift')
+        $shifts = shift::create([
+            'nama_shift' => $request->get('nama_shift'),
+            'waktu_mulai' => $request->get('waktu_mulai'),
+            'waktu_selesai' => $request->get('waktu_selesai')
         ]);
 
         return response()->json([
-            'data' => new PegawaiResource($pegawais),
-            'message' => 'Data Pegawai created successfully.',
+            'data' => new ShiftResource($shifts),
+            'message' => 'Data Shift created successfully.',
             'success' => true
         ]);
     }
@@ -81,15 +74,15 @@ class PegawaiController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Pegawai  $pegawai
+     * @param  \App\Models\Shift  $shift
      * @return \Illuminate\Http\Response
      */
-    public function show(Pegawai $pegawai)
+    public function show(Shift $shift)
     {
         //
         return response()->json([
-            'data' => new PegawaiResource($pegawai),
-            'message' => 'Data Pegawai found',
+            'data' => new ShiftResource($shift),
+            'message' => 'Data Shift found',
             'success' => true
         ]);
     }
@@ -97,10 +90,10 @@ class PegawaiController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Pegawai  $pegawai
+     * @param  \App\Models\Shift  $shift
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pegawai $pegawai)
+    public function edit(Shift $shift)
     {
         //
     }
@@ -109,16 +102,14 @@ class PegawaiController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Pegawai  $pegawai
+     * @param  \App\Models\Shift  $shift
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pegawai $pegawai)
+    public function update(Request $request, Shift $shift)
     {
         //
         $validator = Validator::make($request->all(), [
-            'nama' => 'required',
-            //'username' => 'required',
-            //'password' => 'required'
+            'nama_shift' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -129,40 +120,33 @@ class PegawaiController extends Controller
             ]);
         }
 
-        $pegawai->update([
-            'nama' => $request->get('nama'),
-            'alamat' => $request->get('alamat'),
-            'no_hp' => $request->get('no_hp'),
-            'bagian' => $request->get('bagian'),
-            //'username' => $request->get('username'),
-            //'password' => bcrypt($request->get('password')),
-            'id_jabatan' => $request->get('id_jabatan'),
-            'id_shift' => $request->get('id_shift')
+        $shift->update([
+            'nama_shift' => $request->get('nama_shift'),
+            'waktu_mulai' => $request->get('waktu_mulai'),
+            'waktu_selesai' => $request->get('waktu_selesai')
         ]);
 
         return response()->json([
-            'data' => new PegawaiResource($pegawai),
-            'message' => 'Data Pegawai Update successfully.',
+            'data' => new ShiftResource($shift),
+            'message' => 'Data Shift Update successfully.',
             'success' => true
         ]);
-
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Pegawai  $pegawai
+     * @param  \App\Models\Shift  $shift
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pegawai $pegawai)
+    public function destroy(Shift $shift)
     {
         //
-        $pegawai->delete();
-
         return response()->json([
             'data' => [],
-            'message' => 'Data Pegawai deleted successfully',
+            'message' => 'Data Shift deleted successfully',
             'success' => true
         ]);
+        
     }
 }

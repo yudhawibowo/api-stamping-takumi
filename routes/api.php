@@ -38,6 +38,12 @@ Route::middleware('auth:sanctum')->prefix('v1_0')->group(function() {
     // PEGAWAI
     Route::resource('data-master/pegawai', \App\Http\Controllers\API\DataMaster\PegawaiController::class);
 
+    // JABATAN
+    Route::resource('data-master/jabatan', \App\Http\Controllers\API\DataMaster\JabatanController::class);
+
+    // SHIFT
+    Route::resource('data-master/shift', \App\Http\Controllers\API\DataMaster\ShiftController::class);
+
 });
 
 Route::prefix('v1_0')->group(function(){
