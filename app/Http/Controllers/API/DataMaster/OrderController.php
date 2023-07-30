@@ -52,9 +52,9 @@ class OrderController extends Controller
         if($request->upload_file){
             //upload file disini
             $fileName = $this->generateRandomString();
-            $extention = $request->file->extention();
+            $extention = $request->upload_file->extention();
             $image = $fileName.'.'.$extention;
-            Storage::putFileAs('files',$request->file, $image);
+            Storage::putFileAs('files',$request->upload_file, $image);
         }
         
         //
