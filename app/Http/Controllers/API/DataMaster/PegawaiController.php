@@ -19,7 +19,7 @@ class PegawaiController extends Controller
     public function index(Request $request)
     {
         //
-        $pegawai = Pegawai::latest()->with('jabatan:id,nama_jabatan,bagian','shift:id,nama_shift,waktu_mulai,waktu_selesai');
+        $pegawai = Pegawai::with('jabatan:id,nama_jabatan,bagian','shift:id,nama_shift,waktu_mulai,waktu_selesai');
         //Sort by
         if($request->sortBy && in_array($request->sortBy,['nama','alamat','no_hp','bagian','username'])){
             $sortBy=$request->sortBy;
