@@ -16,10 +16,24 @@ class PegawaiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $pegawais = Pegawai::latest()->with('jabatan:id,nama_jabatan,bagian','shift:id,nama_shift,waktu_mulai,waktu_selesai')->get();
+        $pegawai = Pegawai::latest()->with('jabatan:id,nama_jabatan,bagian','shift:id,nama_shift,waktu_mulai,waktu_selesai');
+        //Sort by
+        if($request->sortBy && in_array($request->sortBy,['nama','alamat','no_hp','bagian','username'])){
+            $sortBy=$request->sortBy;
+        } else {
+            $sortBy='id';
+        }
+        //Sort order by
+        if($request->sortOrder && in_array($request->sortOrder,['asc','desc'])){
+            $sortOrder=$request->sortOrder;
+        } else {
+            $sortOrder='desc';
+        }
+
+        $pegawais = $pegawai->orderBY($sortBy,$sortOrder)->get();
         return response()->json([
             'data' => PegawaiResource::collection($pegawais),
             'message' => 'All Data Pegawai',
