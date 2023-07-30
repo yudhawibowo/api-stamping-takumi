@@ -41,7 +41,7 @@ class PegawaiController extends Controller
         }
 
         if($request->paginate){  
-            $pegawais = $pegawai->orderBy($sortBy,$sortOrder)->paginate($perPage);
+            $pegawais = $pegawai->orderBy($sortBy,$sortOrder)->paginate($perPage)->get();
         } else {
             $pegawais = $pegawai->orderBy($sortBy,$sortOrder)->get();
         }
