@@ -47,16 +47,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //Request File
-        $image = null;
-        if($request->upload_file){
-            //upload file disini
-            $fileName = $this->generateRandomString();
-            $extention = $request->upload_file->extention();
-            $image = $fileName.'.'.$extention;
-            Storage::putFileAs('files',$request->upload_file, $image);
-        }
-        
+               
         //
         $validator = Validator::make($request->all(), [
             'id_customer' => 'required',
@@ -69,6 +60,16 @@ class OrderController extends Controller
                 'message' => $validator->errors(),
                 'success' => false
             ]);
+        }
+
+        //Request File
+        $image = null;
+        if($request->upload_file){
+            //upload file disini
+            $fileName = $this->generateRandomString();
+            $extention = $request->upload_file->extention();
+            $image = $fileName.'.'.$extention;
+            Storage::putFileAs('files',$request->upload_file, $image);
         }
 
         $orders = Order::create([
