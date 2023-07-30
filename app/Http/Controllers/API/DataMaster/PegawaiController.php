@@ -33,7 +33,7 @@ class PegawaiController extends Controller
             $sortOrder='desc';
         }
 
-        $pegawais = $pegawai->orderBY($sortBy,$sortOrder)->get();
+        $pegawais = $pegawai->orderBy($sortBy,$sortOrder)->get();
         return response()->json([
             'data' => PegawaiResource::collection($pegawais),
             'message' => 'All Data Pegawai',
