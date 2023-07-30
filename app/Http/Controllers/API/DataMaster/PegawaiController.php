@@ -21,7 +21,7 @@ class PegawaiController extends Controller
         //
         $pegawais = Pegawai::latest()->get();
         return response()->json([
-            'data' => PegawaiResource::collection($pegawais),
+            'data' => with(['jabatan','shift'])->PegawaiResource::collection($pegawais),
             'message' => 'All Data Pegawai',
             'success' => true
         ]);
