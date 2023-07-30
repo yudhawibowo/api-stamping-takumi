@@ -25,10 +25,10 @@ class Pegawai extends Model
         'password',
     ];
 
-    // public function jabatan() : BelongsTo 
-    // {
-    //     return $this->belongsTo(Jabatan::class, 'id_jabatan' , 'id');        
-    // }
+    public function jabatan(): BelongsTo 
+    {
+        return $this->belongsTo(Jabatan::class, 'id_jabatan' , 'id');        
+    }
 
     // public function shift() : BelongsTo 
     // {
