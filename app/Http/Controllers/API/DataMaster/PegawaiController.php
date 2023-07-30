@@ -19,9 +19,9 @@ class PegawaiController extends Controller
     public function index()
     {
         //
-        $pegawais = Pegawai::latest()->get();
+        $pegawais = with(['jabatan'],['shift'])->Pegawai::latest()->get();
         return response()->json([
-            'data' => with(['jabatan'])->with(['shift'])->PegawaiResource::collection($pegawais),
+            'data' => PegawaiResource::collection($pegawais),
             'message' => 'All Data Pegawai',
             'success' => true
         ]);
