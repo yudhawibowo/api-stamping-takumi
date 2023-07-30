@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -46,6 +47,16 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        //Request File
+        $image = null;
+        if($request->upload_file){
+            //upload file disini
+            $fileName = $this->generateRandomString();
+            $extention = $request->file->extention();
+            $image = $fileName.'.'.$extention;
+            Storage::putFileAs('files',$request->file, $image);
+        }
+        
         //
         $validator = Validator::make($request->all(), [
             'id_customer' => 'required',
@@ -72,7 +83,7 @@ class OrderController extends Controller
             'material_supply' => $request->get('material_supply'),
             'internal_order_number' => $request->get('internal_order_number'),
             'notes' => $request->get('notes'),
-            'upload_file' => $request->get('upload_file'),
+            'upload_file' => $request['upload_file'] = $image, //$request->get('upload_file'),
             'id_pegawai' => $request->get('id_pegawai')
         ]);
 
@@ -173,4 +184,15 @@ class OrderController extends Controller
             'success' => true
         ]);
     }
+
+    function generateRandomString($length = 30) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[random_int(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+    
 }
