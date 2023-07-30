@@ -30,8 +30,8 @@ class Pegawai extends Model
         return $this->belongsTo(Jabatan::class, 'id_jabatan' , 'id');        
     }
 
-    // public function shift() : BelongsTo 
-    // {
-    //     return $this->belongsTo(Shift::class, 'id_shift' , 'id');        
-    // }
+    public function shift() : BelongsTo 
+    {
+        return $this->belongsTo(Shift::class, 'id_shift' , 'id');        
+    }
 }

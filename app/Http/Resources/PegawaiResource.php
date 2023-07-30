@@ -22,7 +22,7 @@ class PegawaiResource extends JsonResource
             'username' => $this->username,
             'password' => $this->password,
             'id_jabatan' => $this->jabatan,
-            'id_shift' => $this->id_shift,
+            'id_shift' => $this->shift,
         ];
     }
 }
