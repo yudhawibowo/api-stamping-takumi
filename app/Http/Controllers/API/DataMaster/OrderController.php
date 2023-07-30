@@ -64,13 +64,9 @@ class OrderController extends Controller
         }
         
         //Request File
-        $image = null;
         if($request->file('upload_file')){
             //upload file disini
-            $fileName = $this->generateRandomString();
-            $extention = $request->file('upload_file')->extention();
-            $image = $fileName.'.'.$extention;
-            Storage::putFileAs('files',$request->file('upload_file'), $image);
+            $uploaded_files = $request->file('upload_file')->store('public/uploads/');
         }
 
         $orders = Order::create([
@@ -85,7 +81,7 @@ class OrderController extends Controller
             'material_supply' => $request->get('material_supply'),
             'internal_order_number' => $request->get('internal_order_number'),
             'notes' => $request->get('notes'),
-            'upload_file' => $image, //$request->get('upload_file'),
+            'upload_file' => $request->file('upload_file')->hashName(), //$request->get('upload_file'),
             'id_pegawai' => $request->get('id_pegawai')
         ]);
 
