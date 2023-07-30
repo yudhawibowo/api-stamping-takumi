@@ -33,7 +33,19 @@ class PegawaiController extends Controller
             $sortOrder='desc';
         }
 
-        $pegawais = $pegawai->orderBy($sortBy,$sortOrder)->get();
+        //Paginate
+        if($request->perPage){
+            $perPage=$request->perPage;
+        } else {
+            $perPage="5";
+        }
+
+        if($request->paginate){  
+            $pegawais = $pegawai->orderBy($sortBy,$sortOrder)->paginate($perPage);
+        } else {
+            $pegawais = $pegawai->orderBy($sortBy,$sortOrder)->get();
+        }
+
         return response()->json([
             'data' => PegawaiResource::collection($pegawais),
             'message' => 'All Data Pegawai',
