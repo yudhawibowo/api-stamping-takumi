@@ -51,7 +51,8 @@ class OrderController extends Controller
         //
         $validator = Validator::make($request->all(), [
             'id_customer' => 'required',
-            'po_number' => 'required'
+            'po_number' => 'required',
+            'upload_file' => 'file|max:5000|mimes:png,jpg,jpeg,pdf'
         ]);
 
         if ($validator->fails()) {
@@ -61,15 +62,15 @@ class OrderController extends Controller
                 'success' => false
             ]);
         }
-
+        
         //Request File
         $image = null;
-        if($request->upload_file){
+        if($request->file('upload_file')){
             //upload file disini
             $fileName = $this->generateRandomString();
-            $extention = $request->upload_file->extention();
+            $extention = $request->file('upload_file')->extention();
             $image = $fileName.'.'.$extention;
-            Storage::putFileAs('files',$request->upload_file, $image);
+            Storage::putFileAs('files',$request->file('upload_file'), $image);
         }
 
         $orders = Order::create([
@@ -84,7 +85,7 @@ class OrderController extends Controller
             'material_supply' => $request->get('material_supply'),
             'internal_order_number' => $request->get('internal_order_number'),
             'notes' => $request->get('notes'),
-            'upload_file' => $request['upload_file'] = $image, //$request->get('upload_file'),
+            'upload_file' => $image, //$request->get('upload_file'),
             'id_pegawai' => $request->get('id_pegawai')
         ]);
 
