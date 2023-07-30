@@ -66,7 +66,7 @@ class OrderController extends Controller
         //Request File
         if($request->file('upload_file')){
             //upload file disini
-            $uploaded_files = $request->file('upload_file')->store('public/uploads/');
+            $uploaded_files = $request->file('upload_file')->store('public');
         }
 
         $orders = Order::create([
